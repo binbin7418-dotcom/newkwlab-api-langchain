@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "newkwlab-langchain"
+version = "0.1.0"
+description = "LangChain tools for the NewKwLab API Bundle gateway — email/phone/card validation, LEI and airport lookups, sanctions screening, behind one API key and one credit balance."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "NewKwLab" }]
+keywords = ["langchain", "tools", "agent", "email-validation", "sanctions-screening"]
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+]
+dependencies = [
+    "langchain-core>=0.3",
+    # The gateway's Python SDK (sibling package ../python-sdk). Pre-release:
+    # it is not on PyPI yet, so until publication install it from the sibling
+    # directory first — pip then resolves this dependency locally:
+    #   pip install ../python-sdk
+    #   pip install .
+    "newkwlab-api-bundle>=0.1.0",
+]
+
+# uv users in this monorepo can resolve the SDK from the sibling directory by
+# uncommenting:
+# [tool.uv.sources]
+# newkwlab-api-bundle = { path = "../python-sdk", editable = true }
+
+[tool.setuptools.packages.find]
+where = ["src"]
